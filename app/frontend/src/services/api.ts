@@ -1,6 +1,16 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+function getNormalizedApiUrl(): string {
+  let url = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+  url = url.trim().replace(/\/+$/, '')
+  // If user entered backend root e.g. https://voiceprep-api.onrender.com without /api
+  if (!url.endsWith('/api') && !url.endsWith('/api/v1')) {
+    url = `${url}/api`
+  }
+  return url
+}
+
+export const API_BASE_URL = getNormalizedApiUrl()
 
 const api = axios.create({
   baseURL: API_BASE_URL,
