@@ -2,15 +2,35 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from app.core.config import settings
 
-# If using SQLite, ensure connect_args allows multi-threaded async access
-connect_args = {}
-if settings.DATABASE_URL.startswith("sqlite"):
-    connect_args = {"check_same_thread": False}
+def _get_db_url_and_connect_args():
+    """
+    Normalise DATABASE_URL for asyncpg compatibility:
+    - SQLite: pass check_same_thread=False
+    - PostgreSQL (Neon/Supabase): asyncpg uses ssl= not sslmode=.
+      Replace ?sslmode=require with ?ssl=require and set ssl connect_arg.
+    """
+    url = settings.DATABASE_URL
+    connect_args = {}
+
+    if url.startswith("sqlite"):
+        connect_args = {"check_same_thread": False}
+    elif "postgresql" in url or "postgres" in url:
+        # asyncpg does not accept sslmode — replace with ssl
+        url = url.replace("sslmode=require", "ssl=require")
+        url = url.replace("sslmode=prefer", "ssl=prefer")
+        url = url.replace("sslmode=disable", "")
+        # Force ssl=True connect_arg for Neon/Supabase which always require TLS
+        if "ssl=require" in url or "neon.tech" in url or "supabase" in url:
+            connect_args = {"ssl": "require"}
+
+    return url, connect_args
+
+_db_url, _connect_args = _get_db_url_and_connect_args()
 
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    _db_url,
     echo=settings.DEBUG,
-    connect_args=connect_args,
+    connect_args=_connect_args,
     future=True
 )
 
