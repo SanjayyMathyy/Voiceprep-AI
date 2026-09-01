@@ -1,0 +1,584 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN SYSTEM — VOICEPREP
+   Minimalist Modern: Clarity through structure,
+   character through bold detail.
+   Theme: #4dd4db Vibrant Cyan/Teal
+   Supports Light & Dark Modes
+   ============================================================ */
+
+:root {
+  /* --- Default Light Mode Palette --- */
+  --color-background: #FAFAFA;
+  --color-foreground: #0F172A;
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #64748B;
+  --color-accent: #4dd4db;
+  --color-accent-secondary: #22b8bf;
+  --color-accent-foreground: #072a2c;
+  --color-border: #E2E8F0;
+  --color-card: #FFFFFF;
+  --color-ring: #4dd4db;
+  --color-destructive: #EF4444;
+  --color-sidebar-bg: #FFFFFF;
+  --shadow-accent: 0 4px 14px rgba(77, 212, 219, 0.28);
+  --shadow-accent-lg: 0 8px 24px rgba(77, 212, 219, 0.40);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+
+  /* --- Typography --- */
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* --- Border Radius --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* --- Dark Mode Palette (Sleek True Black & Charcoal) --- */
+html[data-theme="dark"], .dark {
+  --color-background: #000000;
+  --color-foreground: #F3F4F6;
+  --color-muted: #111113;
+  --color-muted-foreground: #9CA3AF;
+  --color-accent: #4dd4db;
+  --color-accent-secondary: #22b8bf;
+  --color-accent-foreground: #072a2c;
+  --color-border: #1F1F23;
+  --color-card: #0A0A0C;
+  --color-ring: #4dd4db;
+  --color-destructive: #F87171;
+  --color-sidebar-bg: #050507;
+  --shadow-accent: 0 4px 20px rgba(77, 212, 219, 0.35);
+  --shadow-accent-lg: 0 8px 30px rgba(77, 212, 219, 0.45);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+@theme {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-secondary: var(--color-accent-secondary);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-border: var(--color-border);
+  --color-card: var(--color-card);
+  --color-ring: var(--color-ring);
+  --color-destructive: var(--color-destructive);
+}
+
+/* ============================================================
+   GLOBAL BASE STYLES
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.625;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ============================================================
+   CONTAINER & EXPANDED LAYOUT SYSTEM
+   ============================================================ */
+
+.container-app {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container-main {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container-sm {
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-accent {
+  font-family: var(--font-mono);
+}
+
+/* Gradient Text — The Signature Accent */
+.gradient-text {
+  background: linear-gradient(135deg, #4dd4db 0%, #22b8bf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gradient Background */
+.gradient-bg {
+  background: linear-gradient(135deg, #4dd4db, #22b8bf);
+}
+
+.gradient-bg-r {
+  background: linear-gradient(to right, #4dd4db, #22b8bf);
+}
+
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-xl);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-ring);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Primary Button */
+.btn-primary {
+  background: linear-gradient(135deg, #4dd4db 0%, #22b8bf 100%);
+  color: #072a2c;
+  padding: 0.75rem 1.75rem;
+  height: 3rem;
+  box-shadow: 0 2px 12px rgba(77, 212, 219, 0.35);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-accent-lg);
+  filter: brightness(1.06);
+}
+
+.btn-primary:active {
+  transform: scale(0.98) translateY(0);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: var(--color-card);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border);
+  padding: 0.75rem 1.75rem;
+  height: 3rem;
+}
+
+.btn-secondary:hover {
+  background: var(--color-muted);
+  border-color: rgba(77, 212, 219, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-muted-foreground);
+  padding: 0.5rem 1rem;
+  height: auto;
+}
+
+.btn-ghost:hover {
+  color: var(--color-foreground);
+  background: var(--color-muted);
+}
+
+/* Large Button Variant */
+.btn-lg {
+  height: 3.5rem;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+}
+
+/* ============================================================
+   CARD SYSTEM
+   ============================================================ */
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  transition: all 0.25s ease-out;
+  box-shadow: var(--shadow-card);
+}
+
+.card-hover:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+  transform: translateY(-2px);
+  border-color: rgba(77, 212, 219, 0.3);
+}
+
+.card-base {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  transition: all 0.25s ease-out;
+  box-shadow: var(--shadow-card);
+}
+
+/* Featured card — gradient border */
+.card-featured {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+  padding: 2px;
+  border-radius: var(--radius-2xl);
+}
+
+.card-featured-inner {
+  background: var(--color-card);
+  border-radius: calc(var(--radius-2xl) - 2px);
+  height: 100%;
+  width: 100%;
+}
+
+/* ============================================================
+   SECTION LABEL / BADGE
+   ============================================================ */
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(77, 212, 219, 0.35);
+  background: rgba(77, 212, 219, 0.12);
+  padding: 0.375rem 1.125rem;
+}
+
+.section-label-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.section-label-dot.pulse {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.section-label-text {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* ============================================================
+   INPUT SYSTEM
+   ============================================================ */
+
+.input, .input-field {
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  transition: all 0.2s ease-out;
+  outline: none;
+}
+
+.input::placeholder, .input-field::placeholder {
+  color: var(--color-muted-foreground);
+  opacity: 0.6;
+}
+
+.input:focus, .input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(77, 212, 219, 0.25);
+}
+
+.input:disabled, .input-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input-lg {
+  height: 3.5rem;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+
+.section-padding {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+/* Inverted Section */
+.section-inverted {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-inverted .section-label {
+  border-color: rgba(77, 212, 219, 0.3);
+  background: rgba(77, 212, 219, 0.12);
+}
+
+.section-inverted .section-label-text {
+  color: #4dd4db;
+}
+
+.section-inverted .section-label-dot {
+  background: var(--color-accent);
+}
+
+/* Dot texture overlay */
+.dot-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,1) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Radial glow */
+.glow-accent {
+  position: absolute;
+  width: 40rem;
+  height: 40rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 212, 219, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+/* ============================================================
+   ICON CONTAINER
+   ============================================================ */
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #4dd4db, #22b8bf);
+  color: #072a2c;
+  flex-shrink: 0;
+  transition: transform 0.2s ease-out;
+}
+
+.icon-container-lg {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-xl);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.7; }
+}
+
+@keyframes float-up {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-down {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-float-up {
+  animation: float-up 5s ease-in-out infinite;
+}
+
+.animate-float-down {
+  animation: float-down 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 45s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Mic recording pulse */
+@keyframes mic-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(77, 212, 219, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(77, 212, 219, 0); }
+}
+
+.animate-mic-pulse {
+  animation: mic-pulse 1.5s ease-in-out infinite;
+}
+
+/* Activity indicator */
+@keyframes activity-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.6; }
+}
+
+.animate-activity {
+  animation: activity-pulse 3s ease-in-out infinite;
+}
+
+/* Waveform bars */
+@keyframes wave-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.wave-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  transform-origin: bottom;
+  animation: wave-bar 0.8s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0s; }
+.wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { animation-delay: 0.2s; }
+.wave-bar:nth-child(6) { animation-delay: 0.1s; }
+.wave-bar:nth-child(7) { animation-delay: 0s; }
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-foreground);
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background: rgba(77, 212, 219, 0.25);
+  color: var(--color-foreground);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-up,
+  .animate-float-down,
+  .animate-spin-slow,
+  .animate-spin-slow-reverse,
+  .animate-mic-pulse,
+  .animate-activity,
+  .wave-bar,
+  .section-label-dot.pulse {
+    animation: none;
+  }
+}

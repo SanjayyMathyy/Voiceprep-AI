@@ -1,0 +1,29 @@
+# Environment variables & secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+
+# Python cache & databases
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+uploads/
+
+# Build artifacts
+dist/
+dist-ssr/
+build/
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
