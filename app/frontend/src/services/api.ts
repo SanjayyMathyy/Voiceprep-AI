@@ -3,6 +3,10 @@ import axios from 'axios'
 function getNormalizedApiUrl(): string {
   let url = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
   url = url.trim().replace(/\/+$/, '')
+  // Auto-upgrade http to https for remote non-localhost hosts
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && url.startsWith('http://') && !url.includes('localhost') && !url.includes('127.0.0.1')) {
+    url = url.replace(/^http:\/\//i, 'https://')
+  }
   // If user entered backend root e.g. https://voiceprep-api.onrender.com without /api
   if (!url.endsWith('/api') && !url.endsWith('/api/v1')) {
     url = `${url}/api`
